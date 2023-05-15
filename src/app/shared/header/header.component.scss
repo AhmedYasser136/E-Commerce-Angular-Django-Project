@@ -1,0 +1,25 @@
+nav {
+    background: linear-gradient(to right, aqua, rgb(73, 73, 148));
+    color: azure;
+    .content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 0;
+ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+    margin: 0;
+    li{
+        cursor: pointer;
+        font-size: 17px;
+        color:beige;
+        text-decoration: none;
+        margin:auto;
+    }
+}
+
+    }
+}
