@@ -6,6 +6,7 @@ import { ProductsDetailsComponent } from './Products/components/products-details
 import { ProductsListComponent } from './Products/components/products-list/products-list.component';
 import { ShopingCartComponent } from './ShopingCart/component/shoping-cart/shoping-cart.component';
 import { AuthModule } from './auth/auth.module';
+// import { AuthGuard } from './auth/auth.guard';
 const routes: Routes = [
 // {path: 'Login',component: LoginComponent},
 // {path: 'Register', component: RegisterComponent},

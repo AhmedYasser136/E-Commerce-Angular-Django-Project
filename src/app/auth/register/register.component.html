@@ -18,7 +18,7 @@
   </form> -->
   <div class="container">
     <form [formGroup]="registerationForm">
-   {{registerationForm.value |json}}
+  
         <div class="form-group">
             <label>User Name</label>
             <input [class.is-invalid]="userName?.invalid &&userName?.touched" formControlName="userName" type="text" class="form-control">

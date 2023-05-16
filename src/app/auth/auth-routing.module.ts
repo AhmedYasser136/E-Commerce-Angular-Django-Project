@@ -4,6 +4,8 @@ import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component';
 import { AuthModule } from './auth.module';
 
+// import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   {path: '', children: [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,3 +20,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AuthRoutingModule { }
+
+
+
+
