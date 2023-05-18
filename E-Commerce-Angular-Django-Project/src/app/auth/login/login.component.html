@@ -16,6 +16,7 @@
   </form> -->
   <div class="container"></div>
 
+
   <form [formGroup]="registerationForm">
    
   
@@ -36,7 +37,7 @@
       </div>
     </div>
   
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit"   (click)="onSubmit() " class="btn btn-primary">Submit</button>
     <br>
     <button type="Register" (click)="onRegister()" class="btn btn-primary">Register</button>
   

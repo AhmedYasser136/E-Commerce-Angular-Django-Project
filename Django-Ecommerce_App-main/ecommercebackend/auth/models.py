@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+# from django.contrib.auth import get_user_model
+
+# User = get_user_model()
+
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
@@ -39,12 +43,17 @@ class Users(AbstractBaseUser):
     is_super_teacher = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+class Meta:
+    # app_label = 'auth'
+    # db_table = "tbl_users"
+
     USERNAME_FIELD = 'email'
 
     objects = MyAccountManager()
 
-    class Meta:
-        db_table = "tbl_users"
+class Meta:
+    db_table = "tbl_users"
+    
 
     def __str__(self):
         return str(self.email)
@@ -52,4 +61,13 @@ class Users(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None): return self.is_superuser
 
-    def has_module_perms(self, app_label): return self.is_superuser
+    def has_module_perms(self, app_label:any): return self.is_superuser
+
+#     from django.db import models
+
+# class MyModel(models.Model):
+#     name = models.CharField(max_length=255)
+#     description = models.TextField()
+
+# class Meta:
+#     db_table = 'my_model'

@@ -5,6 +5,8 @@ import { ForbiddenNameValidator } from '../custom-validations/userName.validator
 import { ConfirmPasswordValidator } from '../custom-validations/confirmPassword.validator';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -19,84 +21,11 @@ import { Component, OnInit } from '@angular/core';
 // //   this.router.navigate(['/register']);
 // // }
 
-// // };
 
-
-
-
-// export class LoginComponent implements OnInit {
-// Password: any;
-
-//   constructor(private fb:FormBuilder, private router: Router, private activeRoute :ActivatedRoute) { }
-//   onRegister() {
-//     this.router.navigate(['/register']);
-//   }
-  
-//   registerationForm=this.fb.group({
-
-//     Password :['', [Validators.required,Validators.minLength(5),ForbiddenNameValidator]],
-//     email:[''],
-//     subscribe:[false],
-//     alternativeEmails:this.fb.array([]),
-  
-//     })
-//   },
-
-//   get Password()
-//   {
-//     return this.registerationForm.get('Password');
-//   }
-
-//   get email()
-//   {
-//     return this.registerationForm.get('email');
-//   }
-
- 
-
-//   ngOnInit(): void {
-//   }
-
-
-
-//   setEmailValidator()
-//   {
-//     this.registerationForm.get('subscribe')?.valueChanges.subscribe(checkedValue=>{
-//       if(checkedValue)
-//       {
-//         this.email?.setValidators(Validators.required);
-//       }
-//       else
-//       {
-//         this.email?.clearValidators();
-//       }
-//       this.email?.updateValueAndValidity();
-//     })
-//   }
-
-// }
-
-// function Password() {
-//   throw new Error('Function not implemented.');
-// }
-
-
-// function email() {
-//   throw new Error('Function not implemented.');
-// }
-
-// function ngOnInit() {
-//   throw new Error('Function not implemented.');
-// }
-
-
-
-
-// function setEmailValidator() {
-//   throw new Error('Function not implemented.');
-// }
 export class LoginComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router, private activeRoute: ActivatedRoute) {}
+  [x: string]: any;
+  data: any=[];
+  constructor(private fb: FormBuilder, private router: Router, private activeRoute: ActivatedRoute, AuthService: AuthService, private http: HttpClient) { }
 
   registerationForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -111,9 +40,30 @@ export class LoginComponent implements OnInit {
     return this.registerationForm.get('password');
   }
 
-  ngOnInit(): void {}
-  
+  ngOnInit() {
+    this['AuthService'].getData().subscribe(
+      (data: any) => {
+        this.data = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
   onRegister() {
     this.router.navigate(['/register']);
   }
+
+  onSubmit() {
+    const url = 'http://localhost:8000/';
+    const formData = new FormData();
+    formData.append('name', this['formData'].name);
+    formData.append('email', this['formData'].email);
+    this['http'].post(url, formData).subscribe(
+      (response: any) => console.log(response),
+      (error: any) => console.log(error)
+    );
+  }
 }
+

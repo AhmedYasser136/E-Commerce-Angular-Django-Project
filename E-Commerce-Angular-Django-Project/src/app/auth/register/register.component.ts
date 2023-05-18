@@ -3,7 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ForbiddenNameValidator } from '../custom-validations/userName.validator';
 import { ConfirmPasswordValidator } from '../custom-validations/confirmPassword.validator';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AuthService } from '../auth.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -31,8 +32,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 export class RegisterComponent implements OnInit {
+  [x: string]: any;
+  data: any=[];
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, AuthService: AuthService, private http: HttpClient) { }
   registerationForm=this.fb.group({
     userName:['',[Validators.required,Validators.minLength(5),ForbiddenNameValidator]],
     password:[''],
@@ -66,8 +69,7 @@ export class RegisterComponent implements OnInit {
     this.alternativeEmails.push(this.fb.control(''));
   }
 
-  ngOnInit(): void {
-  }
+ 
 
   loadData()
   {
@@ -96,6 +98,28 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-}
+  ngOnInit(): void {
+    this['AuthService'].getData().subscribe(
+      (data: any) => {
+        this.data = data;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+  onSubmit() {
+    const url = 'http://localhost:8000/';
+    const formData = new FormData();
+    formData.append('name', this['formData'].name);
+    formData.append('email', this['formData'].email);
+    this['http'].post(url, formData).subscribe(
+      (response: any) => console.log(response),
+      (error: any) => console.log(error)
+    );
+  }
+    
+  }
+  
 
   
